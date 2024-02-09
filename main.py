@@ -1,10 +1,10 @@
 import pygame
 import os
 import random
+from pygame import mixer
 
 tela_largura = 500
 tela_altura = 800
-
 cano_imagem = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
 chão_imagem = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
 fundo_imagem = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bg.png')))
@@ -17,7 +17,11 @@ passaros_imagem = [
 pygame.font.init()
 contador_fonte = pygame.font.SysFont('arial', 30)
 
+pygame.display.set_icon(passaros_imagem[0])
+pygame.display.set_caption ('flappy bird - lucas honorato')
 
+
+pygame.init()
 class Passaro:
     IMGS = passaros_imagem
     rot_max = 25
@@ -187,6 +191,10 @@ def main():
                 if evento.key == pygame.K_SPACE:
                     for passaro in passaros:
                         passaro.pular()
+                        pygame.mixer.init()
+                        pygame.mixer.music.load(os.path.join('sounds', 'space.mp3'))
+                        pygame.mixer.music.play()
+                        pygame.mixer.music.set_volume (0.5)
 
         for passaro in passaros:
             passaro.mover()
